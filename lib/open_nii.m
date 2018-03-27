@@ -6,7 +6,7 @@ function [data,FileName,PathName] = open_nii(file)
 % [DATA,FILENAME,PATHNAME] = OPEN_NII(FILE) outputs the data DATA of the FILE
 %  with .nii format and provides the file name FILENAME and path PATHNAME.
 %
-% See also nifti.
+% See also nifti, save_nii.
 %
 % E. Kakaei, J. V. Dornas, J. Braun 2018
 
