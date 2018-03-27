@@ -1,14 +1,14 @@
-function out_data = img2atlas(atlasnii,roi,image,varargin)
+function out_data = img2atlas(atlasnii,atlaslist,image,varargin)
 % IMG2ATLAS finds regions to which voxels of an image belong, for a given
 % atlas.
 %
-% OUT_DATA = IMG2ATLAS(ATLASNII,ROI,IMAGE) gets the atlas nifti file
-% ATLASNII, list of regions ROI and the image nifti file IMAGE and fits the  
-% image to the given atlas. Then, an atlas-fitted image OUT_DATA (N-by-4 cell) 
-% is created contains the region's code, name, index of voxels in each 
-% region and their values/time series. 
+% OUT_DATA = IMG2ATLAS(ATLASNII,ATLASLIST,IMAGE) gets the atlas nifti file
+% ATLASNII, list of regions ATLASLIST and the image nifti file IMAGE and
+% fits the image to the given atlas. Then, an atlas-fitted image OUT_DATA
+% (N-by-4 cell) is created contains the region's code, name, index of voxels
+% in each region and their values/time series. 
 %
-% IMG2ATLAS(ATLASNII,ROI,IMAGE,Property1,Value1) initializes property
+% IMG2ATLAS(ATLASNII,ATLASLIST,IMAGE,Property1,Value1) initializes property
 %   Property1 to Value1.
 %   Admissible property:
 %       save     -   file name to save
@@ -31,7 +31,7 @@ end
 % import
 atlas = open_nii(atlasnii); % nifti file of atlas
 [img,img_name,img_path]= open_nii(image); % image file
-list = load(roi); % load list of atlas names (ROI)
+list = load(atlaslist); % load list of atlas names (ROI)
 
 if ~isfield(list,'ROI')
     error('ROI not defined in brain atlas list')

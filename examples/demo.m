@@ -10,14 +10,14 @@ clc
 
 addpath(genpath(fullfile('..','lib')))
 %% fitting to atlas
-atlas_nii = fullfile('..','atlas','aal','ROI_MNI_V4.nii'); % path to atlas nifti file
-ROI = fullfile('..','atlas','aal','ROI_MNI_V4_List.mat'); % path to list of ROI
+atlasnii = fullfile('..','atlas','aal','ROI_MNI_V4.nii'); % path to atlas nifti file
+atlaslist = fullfile('..','atlas','aal','ROI_MNI_V4_List.mat'); % path to list of ROI
 nfiles = 2; 
 for n = 1:nfiles
 imagepath = fullfile('.','Example_Data',['example',num2str(n),'.nii']); % path to images
 save_image_name = ['example',num2str(n)];
 
-out_data = img2atlas(atlas_nii,ROI,imagepath,'save',save_image_name);
+out_data = img2atlas(atlasnii,atlaslist,imagepath,'save',save_image_name);
 
 images(n).out_data = out_data; % data of all images
 end
@@ -41,7 +41,12 @@ nvoxels = size(R,1);
 voxel_per_cluster = 200;
 nclusters = floor(nvoxels/voxel_per_cluster);
 [Idx, Tidx, nc,Dis] = ClusterWithKmeans(R_th,nclusters);
+save(['cluster' num2str(region)],'Idx')
 
+%% save atlas list and nifti
+clusters(1) = {['cluster' num2str(region)]};
+[atlas_data,ROI] = cluster2atlas(clusters,atlasnii,atlaslist,region ...
+    ,'save','example_atlas','nii','example_atlas.nii');
 %% Plots
 % sorting by cluster
 R1 = rho{1};
