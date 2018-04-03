@@ -2,20 +2,20 @@
 
 **MD758 functional parcellation toolbox** provides a set of [MATLAB](https://mathworks.com/products/matlab) based codes that enables users to obtain a coarser functional parcellation of their fMRI data on a desired brain atlas.
 
-##Contents
+## Contents ##
 
 1. [Citing MD758](#citing-md758)
 2. [Requirements](#requirements)
 3. [How to use?](#how-to-use)
 4. [Core codes](#core-codes)
 
-##Citing MD758
+## Citing MD758 ##
 
 MD758 functional parcellation method has been developed and published by:
 
 Dornas, J. V., & Braun, J. (2018). Finer parcellation reveals detailed correlational structure of resting-state fMRI signals. Journal of neuroscience methods, 294, 15-33. <https://doi.org/10.1016/j.jneumeth.2017.10.020>
 
-##Requirements
+## Requirements ##
 
 In order to be able to run the provided codes for functional parcellation, you should provide the following requirements:
 
@@ -23,7 +23,7 @@ In order to be able to run the provided codes for functional parcellation, you s
 - [Statistics and Machine Learning Toolbox](https://www.mathworks.com/products/statistics.html)
 - nifti1 matlab toolbox (download [here](https://nifti.nimh.nih.gov/nifti-1/) or [here](https://sourceforge.net/projects/niftilib/files/niftimatlib/niftimatlib-1.0/niftimatlib-1.0.tar.gz/download) )
 
-##How to use
+## How to use ##
 
 First, please download or clone MD758 functional parcellation [here](https://github.com/cognitive-biology/Parcellation.git). Don't forget to [set the path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html) of the toolbox in your matlab directory.
 
@@ -35,7 +35,7 @@ Before following the pipeline, you can read the [core codes](#core_codes) and al
 
 **WARNING:** Due to large amount of data that fMRI images contain, this process is memory consuming. Make sure to save any unsaved processes before running this program. 
 
-###Pipeline
+### Pipeline ###
 
 After having your fMRI images preprocessed, you can take the following steps to get a finer functional parcellation:
 
@@ -96,9 +96,9 @@ ROI =
 
 	For more information on how to use this function, look at [cluster2atlas](#cluster2atlas) and the [demo](https://github.com/cognitive-biology/Parcellation/blob/master/examples/demo.m) file.
 
-##Core Codes
+## Core Codes ##
 
-###open_nii
+### open_nii ###
 
 *open_nii* function opens files with .nii format using the *nifti1* toolbox
 (nifti.nimh.nih.gov/nifti-1/).
@@ -132,7 +132,7 @@ results in:
  		'Path/to/my/'
 ```
 
-###img2atlas
+### img2atlas ###
 
 *img2atlas* finds regions to which voxels of an image belong, for a given
 atlas, i.e. this function fits the input image input the desired atlas.
@@ -167,7 +167,7 @@ out_data =
     	{[2]}    {'Angular_R'}    { 1752×1 double}    {167×1752  double}
 ```
 
-###local_corr
+### local_corr ###
 
 *local_corr* calcuates the correlation matrix and p-values assigned to it along with the Fisher Z-transformed values.
 
@@ -221,7 +221,7 @@ zscore =
     {1173×1173 double}    {1173×1173 double}
 ```
 
-###threshold
+### threshold ###
 
 *threshold* gets the correlations and Fisher Z-transformed matrices and applies the threshold on them by considering the significacy and consistency of the correlations.
 
@@ -287,7 +287,7 @@ ans =
         1173        1173
 ```
 
-###ClusterWithKmeans
+### ClusterWithKmeans ###
 
 *ClusterWithKmeans* performs kmean clustering on a set of data with a set of pre-defined parameters.
 
@@ -339,7 +339,7 @@ nc =
      5
 ```
 
-###save_nii
+### save_nii ###
 
 SAVE_NII saves files with .nii format using the NifTI Toolbox
 (nifti.nimh.nih.gov/nifti-1/).
@@ -386,7 +386,7 @@ Afterwards, the following command can be used to save the data as a nifti file:
 >> save_nii(data,filename,prop)
 ```
 
-####cluster2atlas
+### cluster2atlas ###
 
 *cluster2atlas* gets a reference atlas and clusters created by functional
 clustering and maps the clusters to the given atlas.
