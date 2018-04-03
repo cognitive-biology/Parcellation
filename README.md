@@ -29,7 +29,7 @@ First, please download or clone MD758 functional parcellation [here](https://git
 
 Then you can follow the pipeline as discussed below:
 
-![](https://github.com/cognitive-biology/Parcellation/blob/master/html/pipeline.png)
+![](https://github.com/cognitive-biology/Parcellation/blob/master/html/pipeline.png)		
 
 Before following the pipeline, you can read the [core codes](#core_codes) and also run the [demo](https://github.com/cognitive-biology/Parcellation/blob/master/examples/demo.m) file created as an example of how you can use this toolbox.
 
@@ -46,7 +46,7 @@ After having your fMRI images preprocessed, you can take the following steps to 
 	As an example, check [ROI\_MNI\_MD758\_List.mat](https://github.com/cognitive-biology/Parcellation/tree/master/atlas/MD758)
 	
 	```
-ROI = 
+	ROI = 
 
   		1×758 struct array with fields:
 
