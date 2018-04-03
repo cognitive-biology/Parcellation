@@ -1,5 +1,6 @@
 function [Idx, Tidx, nc,Dis] = ClusterWithKmeans(r,n)
-% CLUSTERWITHKMEANS Performs kmean clustering on a set of data.
+% CLUSTERWITHKMEANS performs kmean clustering on a set of data with a set 
+% of pre-defined parameters.
 %
 % CLUSTERWITHKMEANS(R,N) gets the N-by-M data R and classifies the data  
 % into N different clusters using correlation as the distance measure and

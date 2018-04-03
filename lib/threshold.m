@@ -1,6 +1,7 @@
 function [r_th,z_th,index] = threshold(r,z,th)
-% THRESHOLD gets the correlations and Fisher Z-transformed correlation 
-% matrix and applies the threshold on them.
+% THRESHOLD gets the correlations and Fisher Z-transformed matrices and 
+% applies the threshold on them by considering the significacy and 
+% consistency of the correlations.
 %
 % [R_TH,Z_TH,INDEX] = THRESHOLD(R,Z,TH) gets N-by-M correlation and Fisher 
 % Z-transformed matrices R and Z and applies the threshold TH on 
