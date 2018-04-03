@@ -29,7 +29,7 @@ First, please download or clone MD758 functional parcellation [here](https://git
 
 Then you can follow the pipeline as discussed below:
 
-![](pipeline.pdf)
+![](https://github.com/cognitive-biology/Parcellation/blob/master/html/pipeline.pdf)
 
 Before following the pipeline, you can read the [core codes](#core_codes) and also run the [demo](https://github.com/cognitive-biology/Parcellation/blob/master/examples/demo.m) file created as an example of how you can use this toolbox.
 
