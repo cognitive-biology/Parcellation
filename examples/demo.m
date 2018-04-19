@@ -21,10 +21,19 @@ for n = 1:nfiles
     
     images(n).out_data = out_data; % data of all images
 end
+%% Quality assessment
+TR_range = 17:166;  % TRs used for analysis
+regions = 1:2;
+[snr_t,mu_t,sigma_t] = tsnr(regions,images,TR_range);
+snr_t = snr_t(:);
+sigma_t = sigma_t(:);
+
+label = 'Signal to noise';
+nbin = 10; % fill bins
+bintype = 'Linear';
+[snr_med, ~, sigma_med, ~, D_snr_sigma] = FillMuSigmaBins( snr_t, sigma_t, nbin, bintype );
 
 %% local correlation
-TR_range = 17:166; % TRs used for analysis
-
 for region = 1:2 % region code (e.g. 1 for Angular L)
     
     save_correlation_name = fullfile('.','Example_Data',['correlation_profile'...
@@ -38,7 +47,7 @@ for region = 1:2 % region code (e.g. 1 for Angular L)
     Z = cell2mat(zscore);
     
     [R_th,Z_th,insignificant_index] = threshold(R,Z,th);
-    
+    th_Z(region) = {Z_th};
     %% clustering
     nvoxels = size(R,1);
     voxel_per_cluster = 200;
@@ -50,37 +59,65 @@ end
 %% save atlas list and nifti
 [atlas_data,ROI] = cluster2atlas(clusters,atlasnii,atlaslist,1:2 ...
     ,'save','example_atlas','nii','example_atlas.nii');
+
 %% Plots
 % sorting by clusters
 load(fullfile('.','Example_Data',['correlation_profile',num2str(1),'_rho']));
 load(fullfile('.','Example_Data',['cluster' num2str(1)]))
 
-R1 = rho{1};
-R2 = rho{2};
+Z1 = rho{1};
+Z2 = rho{2};
+ZZ1 = th_Z{1};
+ZZ2 = ZZ1(:,size(ZZ1,1)+1:end);
+ZZ1 = ZZ1(:,1:size(ZZ1,1));
+
 index = cell(1,max(Idx));
 for kk = 1:max(Idx)
     index{1,kk} = find(Idx==kk);
 end
 A_all = cat(1,index{:});
-Rsort1 = R1(:,A_all);
+Rsort1 = Z1(:,A_all);
 Rsort1 = Rsort1(A_all,:);
 
-Rsort2 = R2(:,A_all);
-Rsort2 = Rsort2(A_all,:);
+Zsort2 = Z2(:,A_all);
+Zsort2 = Zsort2(A_all,:);
 
-figure
-subplot(2,2,1)
-surf(R1,'EdgeColor','none');view(2);axis equal; axis ij; axis off
-title('native example data 1')
+figure(1)
+subplot(2,3,1)
+surf(Z1,'EdgeColor','none');view(2);axis equal; axis ij; axis off
+title('native example data 1','Interpreter','latex','FontSize',14)
+colormap jet
+caxis([0 1])
 
-subplot(2,2,2)
-surf(R2,'EdgeColor','none');view(2);axis equal; axis ij; axis off
-title('native example data 2')
+subplot(2,3,2)
+surf(ZZ1,'EdgeColor','none');view(2);axis equal; axis ij; axis off
+title('example data 1 thresholded','Interpreter','latex','FontSize',14)
+colormap jet
+caxis([0 1])
 
-subplot(2,2,3)
+subplot(2,3,3)
 surf(Rsort1,'EdgeColor','none');view(2);axis equal; axis ij; axis off
-title('example data 1 sorted by clusters')
+title('example data 1 sorted by clusters','Interpreter','latex','FontSize',14)
+colormap jet
+caxis([0 1])
 
-subplot(2,2,4)
-surf(Rsort2,'EdgeColor','none');view(2);axis equal; axis ij; axis off
-title('example data 2 sorted by clusters')
+subplot(2,3,4)
+surf(Z2,'EdgeColor','none');view(2);axis equal; axis ij; axis off
+title('native example data 2','Interpreter','latex','FontSize',14)
+colormap jet
+caxis([0 1])
+
+subplot(2,3,5)
+surf(ZZ2,'EdgeColor','none');view(2);axis equal; axis ij; axis off
+title('example data 2 thresholded','Interpreter','latex','FontSize',14)
+colormap jet
+caxis([0 1])
+
+subplot(2,3,6)
+surf(Zsort2,'EdgeColor','none');view(2);axis equal; axis ij; axis off
+title('example data 2 sorted by clusters','Interpreter','latex','FontSize',14)
+colormap jet
+caxis([0 1])
+
+figure(2)
+plotContour2( label, bintype, '', snr_med, sigma_med, D_snr_sigma );
