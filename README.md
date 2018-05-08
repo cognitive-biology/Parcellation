@@ -1,15 +1,8 @@
-<<<<<<< HEAD
 # MD758 Parcellation & Tools for Functional Sub-Parcellation
 
 **MD758 Parcellation** is a comparatively fine parcellation of human cortex in Montreal MNI152 standard space.  It parcellates human cortex and subcortical gray nuclei into 758 clusters averaging 1.7 cm<sup>3</sup> gray matter volume.  MD758 builds on and refines the anatomical AAL parcellation (Tzourio-Mazoyer et al., 2002) with 90 regions averaging 14 cm<sup>3</sup> gray matter volume.  To subdivide each anatomical region, MD758 relies exclusively on functional correlations within this region, as recorded in eight resting observers (Dornas & Braun, 2018).  No spatial criteria are used.
 
 MD758 reveals highly detailed correlational structure -- approximately 5 x 10<sup>4</sup> cluster-by-cluster correlations are consistently significant over the entire brain -- under various steady-state conditions (resting, continuous stimulation, sustained attention, etc).  Thus it reveals how the global correlational structure of the human brain is altered by different cognitive steady-states.
-=======
-# MD758 Functional Sub-Parcellation
-
-**MD758 functional sub-parcellation toolbox** provides a set of [MATLAB](https://mathworks.com/products/matlab) routines to refine a coarse parcellation of the human brain into a finer functional parcellation.
-For example, these routines could be used functionally sub-divide an anatomically defined region of interest, such as entorhinal and parahippocampal cortex.  We have used these routines to subdivide each of the 90 AAL regions (with an average gray matter volume of 14 cm3) into smaller, functionally devined parcels (with an average gray matter volume 1 cm3). Importantly, this method is NOT suitable for sub-dividing large, functionally heterogeneous brain volumes (such as an entire lobe, or an entire hemisphere).  The reason is that consistently significant temporal correlations between individual brain voxels (on which this method is based) are typically observed only within functionally homogeneous regions.  The sub-parcellation employs functional MRI data acquired from resting observers.  
->>>>>>> bf2f64ae0081f0ba5be34deeb4f53c05262af4df
 
 For the original group of observers, the observed correlation strength per cluster pair is quite high, comparable to that obtained with state-of-the-art, multi-modal parcellations (Craddock et al., 2012; Glasser et al., 2016).
 
@@ -17,41 +10,21 @@ For other observer groups, 'cluster quality' (Arslan et al., 2017) of MD758 is r
 
 Functional correlation and anatomical connectivity matrices of MD758 clusters, as observed by Dornas & Braun (2018), are supplied for purposes of comparision.  Anatomical connectivity was estimated with diffusion-weighted imaging and fibre tracking.
 
-<<<<<<< HEAD
-=======
-MD758 functional sub-parcellation method has been developed and published by:
->>>>>>> bf2f64ae0081f0ba5be34deeb4f53c05262af4df
 
 **S758 Parcellation** refines the anatomical AAL parcellation (Tzourio-Mazoyer et al., 2002) into 758 smaller clusters, purely on the basis of spatial proximity (Dornas & Braun, 2018). No functional criteria are used.
 
 It provides a baseline for parcellation quality and serves a control ('null model', Gordon et al., 2016).
 
-<<<<<<< HEAD
 The functional correlation and anatomical connectivity matrices of S758 clusters are supplied as well.
-=======
-In order to run the provided example code, you will need:
->>>>>>> bf2f64ae0081f0ba5be34deeb4f53c05262af4df
 
 
-<<<<<<< HEAD
 **Functional sub-parcellation toolbox** provides a set of [MATLAB](https://mathworks.com/products/matlab) routines to refine a given coarse parcellation of the human brain into a finer parcellation based on resting-state functional imaging data.  MD758 was computed with these routines.
 
 The method relies on temporal correlations between individual brain voxels, which are often highly signficant within functionally homogeneous brain regions. Perhaps surprisingly, these voxel-by-voxel correlations are often consistent between observers. 
-=======
-In order to perform a functional sub-parcellation, you will need functional scans from resting observers, as well as a coarse atlas defining your anatomical regions of interest (for example, anatomical regions of the AAL parcellation).
-
-## How to use ##
-
-Download or clone MD758 functional sub-parcellation [here](https://github.com/cognitive-biology/Parcellation.git). Don't forget to [set the path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html) of the toolbox in your matlab directory.
->>>>>>> bf2f64ae0081f0ba5be34deeb4f53c05262af4df
 
 The method can be used to 'personalize' a functional parcellation for a given observer or observer group.  It can be used for the whole brain or for selected brain regions of particular interest.
 
-<<<<<<< HEAD
 We do NOT expect this method to be suitable for sub-dividing large, functionally heterogeneous brain volumes (such as an entire lobe, or an entire hemisphere).   
-=======
-![](https://github.com/cognitive-biology/Parcellation/blob/master/html/pipeline.png)
->>>>>>> bf2f64ae0081f0ba5be34deeb4f53c05262af4df
 
 Functional sub-parcellation is based on functional MRI data acquired from resting observers (eyes open or closed). Parcellation quality increases with the quality and amount of functional imaging data. 
 
@@ -86,7 +59,6 @@ In order to use the provided parcellation information, tools, and example code, 
 - [Statistics and Machine Learning Toolbox](https://www.mathworks.com/products/statistics.html)
 - nifti1 matlab toolbox (download [here](https://nifti.nimh.nih.gov/nifti-1/) or [here](https://sourceforge.net/projects/niftilib/files/niftimatlib/niftimatlib-1.0/niftimatlib-1.0.tar.gz/download) )
 
-<<<<<<< HEAD
 ## How to use ##
 
 Download or clone MD758 functional sub-parcellation [here](https://github.com/cognitive-biology/Parcellation.git). Don't forget to [set the path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html) of the toolbox in your matlab directory.
@@ -94,60 +66,6 @@ Download or clone MD758 functional sub-parcellation [here](https://github.com/co
 Before starting, you may want to read the [core routines](#core_routines) and to run the [demo](https://github.com/cognitive-biology/Parcellation/blob/master/examples/demo.m) file created, which illustrates the use of this toolbox.
 
 **WARNING:** Due to large size of fMRI data, functional parcellation is memory consuming.  Make sure to save any unsaved processes before starting this program. (Do you mean: stop all other processes?)
-=======
-	First, you have to map your images to a predefined atlas. You should keep it in mind that your desired atlas and images must be normalized in the same space, e.g. MNI space. In order to be able to map your images, the desired atlas should be in *nifti* format and should have a list of regions of interest (ROI) in *.mat* format. The atlas list of ROI file, contains a variable named as **ROI**. This variable is a structure array of the size equal with number of regions. Fields assigned to it are: <mark>ROI.ID, ROI.Nom\_C and ROI.Nom\_L</mark>, which are the ID of voxels (same as the values assigned to them in the nifti file of the atlas), regions' labels and regions' names.
-	
-	As an example, check [ROI\_MNI\_MD758\_List.mat](https://github.com/cognitive-biology/Parcellation/tree/master/atlas/MD758)
-	
-	```
-ROI = 
-
-  		1×758 struct array with fields:
-
-    		ID
-    		Nom_C
-    		Nom_L
-	``` 
-	After preparing your atlas in the format mentioned above, you can map images to the atlas By using [img2atlas](#img2atlas) function. The output of this function is a variable named as **out_data** which is a cell array of the size N+1-by-4 where the first row contains the data of the voxels outside of the ROIs  of the atlas. Remaining rows, contain the data of the voxels for each regions of interest, in the same order as the *ROI_list.mat* file. 
-	
-	The columns of the out_data variable are the regions' ID, name, Indices of the voxels inside the region and their correspondic data (single number for structural data and time series for the functionla data), respectively. For example, in the [demo](https://github.com/cognitive-biology/Parcellation/blob/master/examples/demo.m) you will get the following data:
-	
-	```
-	out_data =
-
-  		3×4 cell array
-
-    		{[0]}    {0×0 char   }    {25675×1 double}    {167×25675 double}
-    		{[1]}    {'Angular_L'}    { 1173×1 double}    {167×1173  double}
-    		{[2]}    {'Angular_R'}    { 1752×1 double}    {167×1752  double}
-	``` 
-	In order to be able to proceed to the next step, all the data mapped to the atlas should be included in one variable with the <mark>out_data</mark> field.
-
-	```
-	images = 
-
-	  1×2 struct array with fields:
-
-   		 out_data
-
-	``` 
-	
-2. **Correlation Profile of voxels:**
-	
-	After all the images have been mapped to the desired and included in one variable with the out\_data as its field, you can calculate the local correlation profile of each voxel using [local_corr](#local_corr) function, where you have to indicate the region number which will be used for getting the local correlation profile and the TR range that you want to include in your analysis. As a result, correlation matrix, p-value assigned to each element of the correlation matrix and the Fisher Z-transformation form of them are generated as cell arrays of the size equal with number of images included in your analysis, i.e. size of the input data in form of structure array with *out_data* field.
-
-3. **Keeping significant voxels:**
-
-	Once the local correlation profile of the voxels of a region is calculated, one can filter out the voxels with insignificant or inconsistently significant voxels, by applying a threshold on them using the [threshold](#threshold) function. For this purpose, the correlation profile matrices and their Fisher Z-transformed version - which have been calculated in previous step- should be changed from their cell array form to an ordinary array (matrix) using `cell2mat` function. Then these two matrices, along with the threshold, should be inputted in the [threshold](#threshold) function. This will result in 3 outputs, thresholded correlation matrix, thresholded Fisher Z-transformed matrix and the indices of the voxels that did not pass the sanity check.
-	
-4. **Clustering the voxels:**
-
-	To get the clusters of a region based on the correlation profile of the significant voxels, [ClusterWithKmeans](#clusterwithkmeans) function uses Kmean clustering using the `kmeans` function of the matlab with the correlation as the distance between data points and limits number of iterations to 20. To run this code, users should input the thresholded correlation matrix and the number of clusters they want the data points to be clustered in. MD758 uses (on average) 200 voxels per cluster. Then, the [ClusterWithKmeans](#clusterwithkmeans) function will generate the indices of the clusters for each voxel. **For voxels with no significant correlation values, <mark>NaN</mark> has been assigned as their index of cluster.**
-
-5. **Save new parcellation**
-	
-	After the clustering has been finished for all the desired regions, the new atlas can be saved using the [cluster2atlas](#cluster2atlas) function, where the nifti file of the original atlas and its list of regions (ROI), in addition to the code of the regions used for finer parcellation, properties of the nifti file and the path to the files containing the clusters, will be inputted. 
->>>>>>> bf2f64ae0081f0ba5be34deeb4f53c05262af4df
 
 ## Analysis of functional correlations with MD758 or S758 ##
 To analyze the correlational structure of your own functional imaging data with the MD758 parcellation, you will need your pre-processed imaging data in MNI1512 space and the *nifti* files defining this parcellation (which are provided here).
