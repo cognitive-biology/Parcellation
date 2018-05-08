@@ -1,49 +1,100 @@
+<<<<<<< HEAD
+# MD758 Parcellation & Tools for Functional Sub-Parcellation
+
+**MD758 Parcellation** is a comparatively fine parcellation of human cortex in Montreal MNI152 standard space.  It parcellates human cortex and subcortical gray nuclei into 758 clusters averaging 1.7 cm<sup>3</sup> gray matter volume.  MD758 builds on and refines the anatomical AAL parcellation (Tzourio-Mazoyer et al., 2002) with 90 regions averaging 14 cm<sup>3</sup> gray matter volume.  To subdivide each anatomical region, MD758 relies exclusively on functional correlations within this region, as recorded in eight resting observers (Dornas & Braun, 2018).  No spatial criteria are used.
+
+MD758 reveals highly detailed correlational structure -- approximately 5 x 10<sup>4</sup> cluster-by-cluster correlations are consistently significant over the entire brain -- under various steady-state conditions (resting, continuous stimulation, sustained attention, etc).  Thus it reveals how the global correlational structure of the human brain is altered by different cognitive steady-states.
+=======
 # MD758 Functional Sub-Parcellation
 
 **MD758 functional sub-parcellation toolbox** provides a set of [MATLAB](https://mathworks.com/products/matlab) routines to refine a coarse parcellation of the human brain into a finer functional parcellation.
 For example, these routines could be used functionally sub-divide an anatomically defined region of interest, such as entorhinal and parahippocampal cortex.  We have used these routines to subdivide each of the 90 AAL regions (with an average gray matter volume of 14 cm3) into smaller, functionally devined parcels (with an average gray matter volume 1 cm3). Importantly, this method is NOT suitable for sub-dividing large, functionally heterogeneous brain volumes (such as an entire lobe, or an entire hemisphere).  The reason is that consistently significant temporal correlations between individual brain voxels (on which this method is based) are typically observed only within functionally homogeneous regions.  The sub-parcellation employs functional MRI data acquired from resting observers.  
+>>>>>>> bf2f64ae0081f0ba5be34deeb4f53c05262af4df
 
-## Contents ##
+For the original group of observers, the observed correlation strength per cluster pair is quite high, comparable to that obtained with state-of-the-art, multi-modal parcellations (Craddock et al., 2012; Glasser et al., 2016).
 
-1. [Citing MD758](#citing-md758)
-2. [Requirements](#requirements)
-3. [How to use?](#how-to-use)
-4. [Core codes](#core-codes)
+For other observer groups, 'cluster quality' (Arslan et al., 2017) of MD758 is reduced, but still superior to that of a spatial parcellation with the same resolution (S758 parcellation).
 
-## Citing MD758 ##
+Functional correlation and anatomical connectivity matrices of MD758 clusters, as observed by Dornas & Braun (2018), are supplied for purposes of comparision.  Anatomical connectivity was estimated with diffusion-weighted imaging and fibre tracking.
 
+<<<<<<< HEAD
+=======
 MD758 functional sub-parcellation method has been developed and published by:
+>>>>>>> bf2f64ae0081f0ba5be34deeb4f53c05262af4df
 
-Dornas, J. V., & Braun, J. (2018). Finer parcellation reveals detailed correlational structure of resting-state fMRI signals. Journal of neuroscience methods, 294, 15-33. <https://doi.org/10.1016/j.jneumeth.2017.10.020>
+**S758 Parcellation** refines the anatomical AAL parcellation (Tzourio-Mazoyer et al., 2002) into 758 smaller clusters, purely on the basis of spatial proximity (Dornas & Braun, 2018). No functional criteria are used.
 
-## Requirements ##
+It provides a baseline for parcellation quality and serves a control ('null model', Gordon et al., 2016).
 
+<<<<<<< HEAD
+The functional correlation and anatomical connectivity matrices of S758 clusters are supplied as well.
+=======
 In order to run the provided example code, you will need:
+>>>>>>> bf2f64ae0081f0ba5be34deeb4f53c05262af4df
 
-- MATLAB 
-- [Statistics and Machine Learning Toolbox](https://www.mathworks.com/products/statistics.html)
-- nifti1 matlab toolbox (download [here](https://nifti.nimh.nih.gov/nifti-1/) or [here](https://sourceforge.net/projects/niftilib/files/niftimatlib/niftimatlib-1.0/niftimatlib-1.0.tar.gz/download) )
 
+<<<<<<< HEAD
+**Functional sub-parcellation toolbox** provides a set of [MATLAB](https://mathworks.com/products/matlab) routines to refine a given coarse parcellation of the human brain into a finer parcellation based on resting-state functional imaging data.  MD758 was computed with these routines.
+
+The method relies on temporal correlations between individual brain voxels, which are often highly signficant within functionally homogeneous brain regions. Perhaps surprisingly, these voxel-by-voxel correlations are often consistent between observers. 
+=======
 In order to perform a functional sub-parcellation, you will need functional scans from resting observers, as well as a coarse atlas defining your anatomical regions of interest (for example, anatomical regions of the AAL parcellation).
 
 ## How to use ##
 
 Download or clone MD758 functional sub-parcellation [here](https://github.com/cognitive-biology/Parcellation.git). Don't forget to [set the path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html) of the toolbox in your matlab directory.
+>>>>>>> bf2f64ae0081f0ba5be34deeb4f53c05262af4df
 
-Then you can follow the pipeline as discussed below:
+The method can be used to 'personalize' a functional parcellation for a given observer or observer group.  It can be used for the whole brain or for selected brain regions of particular interest.
 
+<<<<<<< HEAD
+We do NOT expect this method to be suitable for sub-dividing large, functionally heterogeneous brain volumes (such as an entire lobe, or an entire hemisphere).   
+=======
 ![](https://github.com/cognitive-biology/Parcellation/blob/master/html/pipeline.png)
+>>>>>>> bf2f64ae0081f0ba5be34deeb4f53c05262af4df
 
-Before following the pipeline, you can read the [core codes](#core_codes) and also run the [demo](https://github.com/cognitive-biology/Parcellation/blob/master/examples/demo.m) file created as an example of how you can use this toolbox.
+Functional sub-parcellation is based on functional MRI data acquired from resting observers (eyes open or closed). Parcellation quality increases with the quality and amount of functional imaging data. 
 
-**WARNING:** Due to large amount of data that fMRI images contain, this process is memory consuming. Make sure to save any unsaved processes before running this program. 
+Dornas & Braun (2018) used 4800 imaging volumes (TR) with an average temporal signal-to-noise ratio (tSNR) of approximately 240 (mean / standard devation of the signal time-courses of an individual voxel).  The standard deviation of the tSNR was approximately 30 over voxels and approximately 90 over observers. 
 
-### Pipeline ###
+**Quality assessment tools** 
 
-After having your fMRI images preprocessed, you can take the following steps to get a finer functional parcellation:
+Several routines are provided for assessing data quality at different stages of processing, for example the quality of raw functional imaging data, preprocessed data, the strength of functional correlations between voxels, and the quality of a resultig parcellation (Gordon et al., 2016; Arslan et al., 2017).  
 
-1. **Map to atlas:** 
+These routines should be helpful for 'debugging' imaging protocol and processing pipeline.
 
+## Contents ##
+
+1. [Citing MD758](#citing-md758)
+2. [Requirements](#requirements)
+3. [Analyzing correlational structure](#analyzing-correlational-structure)
+4. [Functional sub-parcellation](#functional-sub-parcellation)
+5. [Core routines](#core-routines)
+6. [Quality assessment routines](#quality-assessment-routines)
+
+## Citing MD758 or functional sub-parcelllation ##
+
+The functional parcellation MD758, a spatial parcellation called S758, tools for performing a functional sub-parcellation on the basis of resting-state functional imaging data, anatomical connecticity based on fibre-tracking, and various measures for assessing parcellation quality are described in:
+
+Dornas, J. V., & Braun, J. (2018). Finer parcellation reveals detailed correlational structure of resting-state fMRI signals. Journal of neuroscience methods, 294, 15-33. <https://doi.org/10.1016/j.jneumeth.2017.10.020>
+
+## Requirements ##
+
+In order to use the provided parcellation information, tools, and example code, you will need:
+
+- MATLAB 
+- [Statistics and Machine Learning Toolbox](https://www.mathworks.com/products/statistics.html)
+- nifti1 matlab toolbox (download [here](https://nifti.nimh.nih.gov/nifti-1/) or [here](https://sourceforge.net/projects/niftilib/files/niftimatlib/niftimatlib-1.0/niftimatlib-1.0.tar.gz/download) )
+
+<<<<<<< HEAD
+## How to use ##
+
+Download or clone MD758 functional sub-parcellation [here](https://github.com/cognitive-biology/Parcellation.git). Don't forget to [set the path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html) of the toolbox in your matlab directory.
+
+Before starting, you may want to read the [core routines](#core_routines) and to run the [demo](https://github.com/cognitive-biology/Parcellation/blob/master/examples/demo.m) file created, which illustrates the use of this toolbox.
+
+**WARNING:** Due to large size of fMRI data, functional parcellation is memory consuming.  Make sure to save any unsaved processes before starting this program. (Do you mean: stop all other processes?)
+=======
 	First, you have to map your images to a predefined atlas. You should keep it in mind that your desired atlas and images must be normalized in the same space, e.g. MNI space. In order to be able to map your images, the desired atlas should be in *nifti* format and should have a list of regions of interest (ROI) in *.mat* format. The atlas list of ROI file, contains a variable named as **ROI**. This variable is a structure array of the size equal with number of regions. Fields assigned to it are: <mark>ROI.ID, ROI.Nom\_C and ROI.Nom\_L</mark>, which are the ID of voxels (same as the values assigned to them in the nifti file of the atlas), regions' labels and regions' names.
 	
 	As an example, check [ROI\_MNI\_MD758\_List.mat](https://github.com/cognitive-biology/Parcellation/tree/master/atlas/MD758)
@@ -96,10 +147,125 @@ ROI =
 5. **Save new parcellation**
 	
 	After the clustering has been finished for all the desired regions, the new atlas can be saved using the [cluster2atlas](#cluster2atlas) function, where the nifti file of the original atlas and its list of regions (ROI), in addition to the code of the regions used for finer parcellation, properties of the nifti file and the path to the files containing the clusters, will be inputted. 
+>>>>>>> bf2f64ae0081f0ba5be34deeb4f53c05262af4df
 
-	For more information on how to use this function, look at [cluster2atlas](#cluster2atlas) and the [demo](https://github.com/cognitive-biology/Parcellation/blob/master/examples/demo.m) file.
+## Analysis of functional correlations with MD758 or S758 ##
+To analyze the correlational structure of your own functional imaging data with the MD758 parcellation, you will need your pre-processed imaging data in MNI1512 space and the *nifti* files defining this parcellation (which are provided here).
 
-## Core Codes ##
+The result of the analysis will be the correlational structure of your imaging data at the resolution of the MD758 parcellation.
+
+<figure>
+  <img src="https://github.com/cognitive-biology/Parcellation/blob/master/html/FC_matrix_MD758.png" alt="MD758" width="1000">
+  <figcaption>Fig 1. - Correlation matrix at the resolution of MD758.</figcaption>
+</figure>
+
+
+For purposes of comparison, you can additionally establish the correlational structure of your data with a spatial parcellation S758.  
+
+<figure>
+  <img src="https://github.com/cognitive-biology/Parcellation/blob/master/html/FC_matrix_S758.png" alt="S758" width="1000">
+  <figcaption>Fig 2. - Correlation matrix at the resolution of S758.</figcaption>
+</figure>
+ 
+The *nifti* files defining this alternative parcellation are provided as well. In addition, optionally, a quantitative assessment of parcellation quality and correlational structure has been also provided.
+
+## Functional sub-parcellation ##
+
+In order to perform a functional sub-parcellation, you will need functional scans from resting observers, as well as a coarse atlas defining your anatomical regions of interest (for example, anatomical regions of the AAL parcellation).
+
+The result will be your new parcellation (i.e., a *nifti* file dividing brain voxels into the new parcels) and, optionally, a quantitative assessement of parcellation quality and correlational structrure (e.g., cluster quality, mutual information, correlation matrix).
+
+The various steps of this process are schematically illustrated here:
+
+<figure>
+  <img src="https://github.com/cognitive-biology/Parcellation/blob/master/html/pipeline.png" alt="pipeline" width="1000">
+  <figcaption>Fig 3. - General pipeline of functional sub-parcellation.</figcaption>
+</figure>
+
+
+### Pipeline ###
+
+Here we assume that your fMRI images have been preprocessed, i.e., field-map and head-motion corrected, temporally filtered, wavelet filtered, regressed, and finally warped and coregistered with your preferred standard space (e.g., MNI152 space).  It is important to use only minimal smoothing (e.g., only non-istotropic filtereing with 2mm), such as to preserve the signal time-course of individual voxels.  See Dornas & Braun (2018) for details.
+
+Preprocessed images should be in *nifti* format, and contain the signal time-courses recorded for each voxels in your preferred standard space.  The number of time samples corresponds to the number volumes or TR recorded during each scan (e.g., N\_TR = 167), and the number of voxels depends on your standard space (e.g., N\_vox = 160000 for MNI152). In order to confirm that the images have the quality needed to use the finer functional parcellation, signal to noise ration for each voxel should be calculated.
+
+<figure>
+  <img src="https://github.com/cognitive-biology/Parcellation/blob/master/html/tsnr.png" alt="signal to noise" width="400">
+  <figcaption>Fig 4. - Example of signal to noise ratio for an image in MNI152 space, parcellated using AAL90.</figcaption>
+</figure>
+
+1. **Map to atlas:** 
+
+	Your chosen atlas defines the coarse brain regions that you wish to subdivide on the basis of functional correlations.  Naturally, this atlas must be provided in your chosen standard space.  The atlas should include a *nifti* file with voxel information (ID, coordinate and value) and *.mat* file with region information.  The latter contains a structure array named as **ROI** of size 1xN_ROI, where N_ROI is the number of regions.   Every member of the array has fields <mark>ROI.ID</mark> (value of the voxels used in *nifti* file), <mark>ROI.Nom</mark> (region abbreviation), and <mark>ROI.Nom\_L</mark> (region name).
+	
+	As an example, check [ROI\_MNI\_MD758\_List.mat](https://github.com/cognitive-biology/Parcellation/tree/master/atlas/MD758) or the *ROI\_MNI\_V5\_List.mat* of the [AAL parcellation](http://www.gin.cnrs.fr/en/tools/aal-aal2/).
+	
+	```
+ROI = 
+
+  		1×90 struct array with fields:
+
+    		ID
+    		Nom_C
+    		Nom_L
+	``` 
+	Given an atlas in this format, you can map images with the [img2atlas](#img2atlas) function. The output of this function is a *.mat* file containing a cell array **out\_data** with (1+N\_ROI) rows and 4 columns, with each row corresponding to a region in the atlas.  Note that the first row is special, as it comprises any and all voxels of the standard space that could not be assigned to any region.  The subsequent rows represent the regions in the order specified by the *ROI_list.mat* file. 
+	
+	The columns of the **out_data** array represent, in order, region number, region name, IDs of all voxels in the region, and signal time-courses of all voxels in the region.  For structural scans, 'time-courses' comprise only a single value.  For functional scans, time-courses comprise N_TR values. For example, in the [demo](https://github.com/cognitive-biology/Parcellation/blob/master/examples/demo.m) you will get the following data:
+	
+	```
+	out_data =
+
+  		3×4 cell array
+
+    		{[0]}    {0×0 char   }    {25675×1 double}    {167×25675 double}
+    		{[1]}    {'Angular_L'}    { 1173×1 double}    {167×1173  double}
+    		{[2]}    {'Angular_R'}    { 1752×1 double}    {167×1752  double}
+	``` 
+	If you have mapped multiple scans/images to the atlas, you must combine all **out_data** cell arrays in a structure array with an **out_data** field.  The size of the structure array will be 1 x N_image, where N\_image is the number of images:
+
+	```
+	images = 
+
+	  1×2 struct array with fields:
+
+   		 out_data
+
+	``` 
+	
+2. **Correlation profile of voxels:**
+	
+	After all images have been mapped to atlas in the manner described above, you can use the   [local_corr](#local_corr) function to compute the 'local correlation profile' for all voxels in one particular region of your atlas. For this purpose, you have to include all the images that have been mapped to the original parcellation, in a single structure array variable with the field <mark>out\_data</mark>. Then, you will have to specify the region number and the range of time-points (TR) to be used (e.g., in case you wish to discard some TR). The 'local correlation profile' of a voxel describes the correlation between the signal time-course of this voxel and the signal-time courses of all other voxels in the same region, separately for each image (scan) included in the input file.  Specifically, each pair-wise correlation is described in terms of correlation coefficient r, probability of significance p, and Fisher transformed value z.  The outputs are provided in the form of cell arrays with two dimensions: 1xN\_images, where inside each array is a square matrix of size N\_voxels x N\_voxels, i.e. correlation matrix of the selected region and the selected run.
+	
+ The ouput is 3 **.mat** files corresponding to correlation *rho*, Fisher transform value *zscore* and the probability of significance *pval*.
+ 
+	<figure>
+  <img src="https://github.com/cognitive-biology/Parcellation/blob/master/html/corr_prof.png" alt="correlation profile" width="1000">
+  <figcaption>Fig 5. - correlation profile of a voxel over 2 runs.</figcaption>
+</figure>
+
+3. **Consistently significant correlations:**
+
+	Once the local correlation profiles of the voxels in a region have been calculated, you may choose to retain only consistently significant correlations for purposes of clustering.  To this end, you can apply a 'consistent significance' threshold by using the [threshold](#threshold) function.  Before doing so, you first need to convert cell arrays into ordinary arrays with the `cell2mat` function. The matrix dimension is now voxel number times voxel number, because the information from different images/scans has now been combined. The [threshold](#threshold) function requires an array of r-values (correlation), an array of z-values, and the desired threshold value (e.g., p=0.05).  'Consistent significance' means that, for a particular pair of voxels, the mean z-value (over images/scans) is above threshold *and* that the variability of z-values (over images/scans) is small (standard deviation below mean).  The output consists of thresholded matrices of r- and z-values (with inconsistent and/or insignificant values set to zero), plus a list of voxels that failed to show significant or consistently signifincant correlations. **Thresholding may produce 'orphaned' voxels, without consistently significant correlation to other voxels.**
+<figure>
+  <img src="https://github.com/cognitive-biology/Parcellation/blob/master/html/corr_mat_th.png" alt="thresholded" width="1000">
+  <figcaption>Fig 6. - Correlation matrix of consistently significant voxels of a single run.</figcaption>
+</figure>	
+4. **Clustering voxels:**
+
+	To cluster the voxels of one particular region, based on their (thresholded) correlation profile, we compute pairwise 'similarity' between profiles, where the correlation coefficient (now computed over voxels) serves as a measure of 'similarity'.  The goal is to assign voxels with 'similar' profiles to the same clusters and voxels with 'dissimilar' profiles to different clusters.  The function [ClusterWithKmeans](#clusterwithkmeans) function uses the K-mean algorithm as implemented by the `kmeans` function of the Matlab.  As the result is slightly stochastic, clustering is repeated 20 times and the results are averaged.  The input required by [ClusterWithKmeans](#clusterwithkmeans) is the thresholded matrix of z-values and the desired number of clusters, N\_cluster.  No further parameter or criterion values are needed.  The number of clusters per region determines the *average* number of voxels per cluster, given the number of voxels in the region.  It must be chosen on scientific grounds (i.e., how fine-grained a parcellation is desired and meaningful).  Dornas & Braun (2018) chose the cluster number for each region such as to obtain a certain average cluster size (e.g., 100 voxels / 0.85 cm<sup>3</sup> gray matter volume, or 200 voxels / 1.7 cm<sup>3</sup>, or 400 voxels / 3.4 cm<sup>3</sup>.  The output of clustering is a list of indices, assigning each voxel in the region to one of the N\_cluster clusters. **'Orphaned' voxels, without consistently significant correlation to other voxels, are assigned cluster index <mark>NaN</mark>.**
+<figure>
+  <img src="https://github.com/cognitive-biology/Parcellation/blob/master/html/corr_mat_cluster.png" alt="clustered" width="1000">
+  <figcaption>Fig 7. - correlation matrix of a single run, clustered.</figcaption>
+</figure>
+5. **Save new parcellation**
+	
+	After clustering of all desired regions has been completed, the results can be combined into a new atlas with the [cluster2atlas](#cluster2atlas) function.  The input required by this funciton includes the *nifti* file of the original atlas, its list of regions (ROI), the list of regions that were sub-divided into finer clusters, some properties of *nifti* files, and the path of the directory containing the results of clustering.  More information about this function is provided in the source code [cluster2atlas](#cluster2atlas) and the example demonstration [demo](https://github.com/cognitive-biology/Parcellation/blob/master/examples/demo.m).
+<figure>
+  <img src="https://github.com/cognitive-biology/Parcellation/blob/master/html/similarity.png" alt="similarity" width="1000">
+  <figcaption>Fig 8. - Comparison of the similarity analysis of MD758 vs. S758.</figcaption>
+</figure>
+## Core routines ##
 
 ### open_nii ###
 
@@ -440,4 +606,67 @@ ROI =
     ID
     Nom_C
     Nom_L
+```
+
+## Quality assessment routines##
+### tsnr ###
+
+*tsnr* calculates the signal to noise ratio for a set of given images.
+
+- **Inputs:**
+ 1. Region numbers that should be involved in assessment of the signal to noise ratio.
+ 2. A 1-by-N structure array containing the data of the atlas-fitted images, where N is the number of images.
+ 3. TR range for which the correlation matrix will be calculated.
+ 4. (optional) save the outputs with the given name.
+- **Outputs:**
+ 1. Signal to noise ratio.
+ 2. Average of the signal strength.
+ 3. Standard deviation of the signal strength.
+- **Example:**
+
+To assess the quality of the images, one can you the function *tsnr* for a set of atlas-mapped images as follows:
+
+```
+>> TR_range = 17:166; 
+>> regions = 1:2; 
+>> data1 = img2atlas(atlasnii,atlaslist,image1);
+>> data2 = img2atlas(atlasnii,atlaslist,image2);
+>> all_images(1).out_data = data1;
+>> all_images(2).out_data = data2;
+>> [snr_t,mu_t,sigma_t] = tsnr(regions,all_images,TR_range,'save', ...
+	'name_to_Save')
+```
+
+### similarity ###
+*similarity* function provides means of testing the finer-parcellation quality by considering the similarity and dissimilarity of the correlation profile of voxels inside each cluster through the cluster homogeneity and Silhouette coefficient.
+
+- **Inputs:**
+ 1. A M-by-N matrix representing the average correlation profile of each voxel inside a region, where M is number of voxels and N is number of runs.
+ 2. A 1-by-M vector representing the cluster indices of M voxels of a region.
+- **Outputs:**
+ 1. Similarity of voxel pairs (M-by-M).
+ 2. Dissimilarity of voxel pairs (M-by-M).
+ 3. Cluster homogeneity (M-by-1).
+ 4. Silhouette coefficient (M-by-1).
+- **Example:**
+
+To get the finer-parcellation quality of a desired region, first the files containing the Fisher Z-transformation value and the indices of the clusters for each voxel, should be loaded.
+
+```
+>> load('path/to/my/zscore_of_the_region.mat')
+>> load('path/to/my/indices_of_clusters_of_the_region.mat')
+```
+
+Then, one should average the z-scores over voxels after eliminating the possible *Inf* or *NaN* values.
+
+```
+>> Z = cell2mat(zscore);
+>> Z(isinf(Z)|isnan(Z)) = 0;
+>> Z = reshape(Z,size(Z,1),size(Z,1),size(Z,2)/size(Z,1));
+>> avg_Z = squeeze(nanmean(Z),1);
+```
+ Finally, one can use the *similarity* function to get the desired parcellation quality assessment measures.
+ 
+```
+>> [S,D,CH,SC] = similarity(avg_Z,Idx);
 ```
