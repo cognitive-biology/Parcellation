@@ -41,7 +41,7 @@ These routines should be helpful for 'debugging' imaging protocol and processing
 1. [Citing MD758](#citing-md758-or-functional-sub-parcellation)
 2. [Requirements](#requirements)
 3. [How to use](#how-to-use)
-4. [Analyzing correlational structure](#analyzing-correlational-structure)
+4. [Analysis of functional correlations with MD758 or S758](#analysis-of-functional-correlations-with-MD758-or-S758)
 5. [Functional sub-parcellation](#functional-sub-parcellation)
 6. [Pipeline](#pipeline)
 7. [Core routines](#core-routines)
