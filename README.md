@@ -1,6 +1,7 @@
-# MD758 Functional Parcellation
+# MD758 Functional Sub-Parcellation
 
-**MD758 functional parcellation toolbox** provides a set of [MATLAB](https://mathworks.com/products/matlab) based codes that enables users to obtain a coarser functional parcellation of their fMRI data on a desired brain atlas.
+**MD758 functional sub-parcellation toolbox** provides a set of [MATLAB](https://mathworks.com/products/matlab) routines to refine a coarse parcellation of the human brain into a finer functional parcellation.
+For example, these routines could be used functionally sub-divide an anatomically defined region of interest, such as entorhinal and parahippocampal cortex.  We have used these routines to subdivide each of the 90 AAL regions (with an average gray matter volume of 14 cm3) into smaller, functionally devined parcels (with an average gray matter volume 1 cm3). Importantly, this method is NOT suitable for sub-dividing large, functionally heterogeneous brain volumes (such as an entire lobe, or an entire hemisphere).  The reason is that consistently significant temporal correlations between individual brain voxels (on which this method is based) are typically observed only within functionally homogeneous regions.  The sub-parcellation employs functional MRI data acquired from resting observers.  
 
 ## Contents ##
 
@@ -11,25 +12,27 @@
 
 ## Citing MD758 ##
 
-MD758 functional parcellation method has been developed and published by:
+MD758 functional sub-parcellation method has been developed and published by:
 
 Dornas, J. V., & Braun, J. (2018). Finer parcellation reveals detailed correlational structure of resting-state fMRI signals. Journal of neuroscience methods, 294, 15-33. <https://doi.org/10.1016/j.jneumeth.2017.10.020>
 
 ## Requirements ##
 
-In order to be able to run the provided codes for functional parcellation, you should provide the following requirements:
+In order to run the provided example code, you will need:
 
 - MATLAB 
 - [Statistics and Machine Learning Toolbox](https://www.mathworks.com/products/statistics.html)
 - nifti1 matlab toolbox (download [here](https://nifti.nimh.nih.gov/nifti-1/) or [here](https://sourceforge.net/projects/niftilib/files/niftimatlib/niftimatlib-1.0/niftimatlib-1.0.tar.gz/download) )
 
+In order to perform a functional sub-parcellation, you will need functional scans from resting observers, as well as a coarse atlas defining your anatomical regions of interest (for example, anatomical regions of the AAL parcellation).
+
 ## How to use ##
 
-First, please download or clone MD758 functional parcellation [here](https://github.com/cognitive-biology/Parcellation.git). Don't forget to [set the path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html) of the toolbox in your matlab directory.
+Download or clone MD758 functional sub-parcellation [here](https://github.com/cognitive-biology/Parcellation.git). Don't forget to [set the path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html) of the toolbox in your matlab directory.
 
 Then you can follow the pipeline as discussed below:
 
-![](https://github.com/cognitive-biology/Parcellation/blob/master/html/pipeline.png)		
+![](https://github.com/cognitive-biology/Parcellation/blob/master/html/pipeline.png)
 
 Before following the pipeline, you can read the [core codes](#core_codes) and also run the [demo](https://github.com/cognitive-biology/Parcellation/blob/master/examples/demo.m) file created as an example of how you can use this toolbox.
 
@@ -46,7 +49,7 @@ After having your fMRI images preprocessed, you can take the following steps to 
 	As an example, check [ROI\_MNI\_MD758\_List.mat](https://github.com/cognitive-biology/Parcellation/tree/master/atlas/MD758)
 	
 	```
-	ROI = 
+ROI = 
 
   		1×758 struct array with fields:
 

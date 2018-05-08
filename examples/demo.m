@@ -60,8 +60,7 @@ end
 [atlas_data,ROI] = cluster2atlas(clusters,atlasnii,atlaslist,1:2 ...
     ,'save','example_atlas','nii','example_atlas.nii');
 
-%% Plots
-% sorting by clusters
+%% sorting by clusters
 load(fullfile('.','Example_Data',['correlation_profile',num2str(1),'_rho']));
 load(fullfile('.','Example_Data',['cluster' num2str(1)]))
 
@@ -76,47 +75,48 @@ for kk = 1:max(Idx)
     index{1,kk} = find(Idx==kk);
 end
 A_all = cat(1,index{:});
-Rsort1 = Z1(:,A_all);
-Rsort1 = Rsort1(A_all,:);
+Zsort1 = Z1(:,A_all);
+Zsort1 = Zsort1(A_all,:);
 
 Zsort2 = Z2(:,A_all);
 Zsort2 = Zsort2(A_all,:);
-
-figure(1)
+%% Plots
+f = figure(1);
+f.Position = 0.8.*get( groot, 'Screensize' );
 subplot(2,3,1)
 surf(Z1,'EdgeColor','none');view(2);axis equal; axis ij; axis off
 title('native example data 1','Interpreter','latex','FontSize',14)
-colormap jet
+colormap(MyJetColormap)
 caxis([0 1])
 
 subplot(2,3,2)
 surf(ZZ1,'EdgeColor','none');view(2);axis equal; axis ij; axis off
 title('example data 1 thresholded','Interpreter','latex','FontSize',14)
-colormap jet
+colormap(MyJetColormap)
 caxis([0 1])
 
 subplot(2,3,3)
-surf(Rsort1,'EdgeColor','none');view(2);axis equal; axis ij; axis off
+surf(Zsort1,'EdgeColor','none');view(2);axis equal; axis ij; axis off
 title('example data 1 sorted by clusters','Interpreter','latex','FontSize',14)
-colormap jet
+colormap(MyJetColormap)
 caxis([0 1])
 
 subplot(2,3,4)
 surf(Z2,'EdgeColor','none');view(2);axis equal; axis ij; axis off
 title('native example data 2','Interpreter','latex','FontSize',14)
-colormap jet
+colormap(MyJetColormap)
 caxis([0 1])
 
 subplot(2,3,5)
 surf(ZZ2,'EdgeColor','none');view(2);axis equal; axis ij; axis off
 title('example data 2 thresholded','Interpreter','latex','FontSize',14)
-colormap jet
+colormap(MyJetColormap)
 caxis([0 1])
 
 subplot(2,3,6)
 surf(Zsort2,'EdgeColor','none');view(2);axis equal; axis ij; axis off
 title('example data 2 sorted by clusters','Interpreter','latex','FontSize',14)
-colormap jet
+colormap(MyJetColormap)
 caxis([0 1])
 
 figure(2)
