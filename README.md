@@ -38,12 +38,13 @@ These routines should be helpful for 'debugging' imaging protocol and processing
 
 ## Contents ##
 
-1. [Citing MD758](#citing-md758)
+1. [Citing MD758](#citing-md758-or-functional-sub-parcellation)
 2. [Requirements](#requirements)
-3. [Analyzing correlational structure](#analyzing-correlational-structure)
-4. [Functional sub-parcellation](#functional-sub-parcellation)
-5. [Core routines](#core-routines)
-6. [Quality assessment routines](#quality-assessment-routines)
+3. [How to use](#how-to-use)
+4. [Analyzing correlational structure](#analyzing-correlational-structure)
+5. [Functional sub-parcellation](#functional-sub-parcellation)
+6. [Pipeline](#pipeline)
+7. [Core routines](#core-routines)
 
 ## Citing MD758 or functional sub-parcelllation ##
 
@@ -119,7 +120,7 @@ Preprocessed images should be in *nifti* format, and contain the signal time-cou
 	As an example, check [ROI\_MNI\_MD758\_List.mat](https://github.com/cognitive-biology/Parcellation/tree/master/atlas/MD758) or the *ROI\_MNI\_V5\_List.mat* of the [AAL parcellation](http://www.gin.cnrs.fr/en/tools/aal-aal2/).
 	
 	```
-ROI = 
+	ROI = 
 
   		1×90 struct array with fields:
 
@@ -157,7 +158,7 @@ ROI =
 	
  The ouput is 3 **.mat** files corresponding to correlation *rho*, Fisher transform value *zscore* and the probability of significance *pval*.
  
-	<figure>
+<figure>
   <img src="https://github.com/cognitive-biology/Parcellation/blob/master/html/corr_prof.png" alt="correlation profile" width="1000">
   <figcaption>Fig 5. - correlation profile of a voxel over 2 runs.</figcaption>
 </figure>
@@ -169,6 +170,7 @@ ROI =
   <img src="https://github.com/cognitive-biology/Parcellation/blob/master/html/corr_mat_th.png" alt="thresholded" width="1000">
   <figcaption>Fig 6. - Correlation matrix of consistently significant voxels of a single run.</figcaption>
 </figure>	
+
 4. **Clustering voxels:**
 
 	To cluster the voxels of one particular region, based on their (thresholded) correlation profile, we compute pairwise 'similarity' between profiles, where the correlation coefficient (now computed over voxels) serves as a measure of 'similarity'.  The goal is to assign voxels with 'similar' profiles to the same clusters and voxels with 'dissimilar' profiles to different clusters.  The function [ClusterWithKmeans](#clusterwithkmeans) function uses the K-mean algorithm as implemented by the `kmeans` function of the Matlab.  As the result is slightly stochastic, clustering is repeated 20 times and the results are averaged.  The input required by [ClusterWithKmeans](#clusterwithkmeans) is the thresholded matrix of z-values and the desired number of clusters, N\_cluster.  No further parameter or criterion values are needed.  The number of clusters per region determines the *average* number of voxels per cluster, given the number of voxels in the region.  It must be chosen on scientific grounds (i.e., how fine-grained a parcellation is desired and meaningful).  Dornas & Braun (2018) chose the cluster number for each region such as to obtain a certain average cluster size (e.g., 100 voxels / 0.85 cm<sup>3</sup> gray matter volume, or 200 voxels / 1.7 cm<sup>3</sup>, or 400 voxels / 3.4 cm<sup>3</sup>.  The output of clustering is a list of indices, assigning each voxel in the region to one of the N\_cluster clusters. **'Orphaned' voxels, without consistently significant correlation to other voxels, are assigned cluster index <mark>NaN</mark>.**
@@ -176,6 +178,7 @@ ROI =
   <img src="https://github.com/cognitive-biology/Parcellation/blob/master/html/corr_mat_cluster.png" alt="clustered" width="1000">
   <figcaption>Fig 7. - correlation matrix of a single run, clustered.</figcaption>
 </figure>
+
 5. **Save new parcellation**
 	
 	After clustering of all desired regions has been completed, the results can be combined into a new atlas with the [cluster2atlas](#cluster2atlas) function.  The input required by this funciton includes the *nifti* file of the original atlas, its list of regions (ROI), the list of regions that were sub-divided into finer clusters, some properties of *nifti* files, and the path of the directory containing the results of clustering.  More information about this function is provided in the source code [cluster2atlas](#cluster2atlas) and the example demonstration [demo](https://github.com/cognitive-biology/Parcellation/blob/master/examples/demo.m).
@@ -183,6 +186,7 @@ ROI =
   <img src="https://github.com/cognitive-biology/Parcellation/blob/master/html/similarity.png" alt="similarity" width="1000">
   <figcaption>Fig 8. - Comparison of the similarity analysis of MD758 vs. S758.</figcaption>
 </figure>
+
 ## Core routines ##
 
 ### open_nii ###
