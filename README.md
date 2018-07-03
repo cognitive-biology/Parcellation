@@ -66,7 +66,7 @@ Download or clone MD758 functional sub-parcellation [here](https://github.com/co
 
 Before starting, you may want to read the [core routines](#core_routines) and to run the [demo](https://github.com/cognitive-biology/Parcellation/blob/master/examples/demo.m) file created, which illustrates the use of this toolbox.
 
-**WARNING:** Due to large size of fMRI data, functional parcellation is memory consuming.  Make sure to save any unsaved processes before starting this program. (Do you mean: stop all other processes?)
+**WARNING:** Due to large size of fMRI data, functional parcellation is memory consuming.  Make sure to save any unsaved processes before starting this program.
 
 ## Analysis of functional correlations with MD758 or S758 ##
 To analyze the correlational structure of your own functional imaging data with the MD758 parcellation, you will need your pre-processed imaging data in MNI1512 space and the *nifti* files defining this parcellation (which are provided here).
