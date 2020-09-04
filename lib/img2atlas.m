@@ -81,7 +81,7 @@ end
 if save_file
     fprintf(['saving ',save_file,' ...\n'])
     matfile = fullfile(img_path, [save_file '.mat']);
-    save(matfile,'out_data')
+    save(matfile,'out_data','-v7.3')
 end
 
 end

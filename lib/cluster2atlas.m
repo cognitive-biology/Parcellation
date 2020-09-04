@@ -72,8 +72,8 @@ end
 %% saves
 if  save_file % save atlas_data as .mat
     fprintf(['saving ',save_file,' ...\n'])
-    save([save_file '.mat'],'atlas_data')
-    save([save_file '_List.mat'],'ROI')
+    save([save_file '.mat'],'atlas_data','-v7.3')
+    save([save_file '_List.mat'],'ROI','-v7.3')
 end
 if nii % save atlas_data as nifti file
     prop.mat = ROI_ref.mat;
